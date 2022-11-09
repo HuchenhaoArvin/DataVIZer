@@ -3,17 +3,15 @@ import React from 'react';
 import { useCSVReader } from 'react-papaparse';
 
 
-export default function Upload() {
+export default function Upload({ setChartData }) {
     const { CSVReader } = useCSVReader();
     return (
         <div className="upload">
-            <CSVReader
-                onUploadAccepted={(results) => {
-                    console.log('---------------------------');
-                    console.log(results);
-                    console.log('---------------------------');
-                }}
-            >
+            <CSVReader onUploadAccepted={(results) => {
+                setChartData(results);
+            }} config={{ header: true }}>
+                {/* this set the config to treat the first row as the header, setting doc https://react-papaparse.js.org/docs#config */}
+
                 {({
                     getRootProps,
                     acceptedFile,
