@@ -48,6 +48,9 @@ export default function Graph({ chartData }) {
                 color: {
                     legend: true//Let user decide
                 },
+                title: {
+                    title: "sdfasf"
+                },
 
                 marks: [
                     Plot.ruleY([0], { y: 70 }),
@@ -57,13 +60,17 @@ export default function Graph({ chartData }) {
                         y: "Life Exp",
                         stroke: "Country",
                         strokeWidth: 3.1,
+
                     }),
-                    Plot.line(finalData, {
+                    Plot.dot(finalData, {
                         x: "Year",
                         y: "Life Exp",
-                        stroke: "Country",
-                        strokeWidth: 1.5,
-                        marker: "dot",
+                        fill: "Country",
+                        // stroke: "Country",
+                        // strokeWidth: 1,
+                        // marker: "dot",
+                        title: d => `Birth Year: ${d.Year.getFullYear()} \nLife Expectancy: ${d["Life Exp"]}`,
+
                     }),
                     // Plot.text(finalData, Plot.selectLast({
                     //     x: "Year",
@@ -88,7 +95,6 @@ export default function Graph({ chartData }) {
     // console.log(chartData, 'chartData from Graph')
     return (
         <div className="graph">
-            Graph works!
             <div ref={plotRef}></div>
         </div>
 
