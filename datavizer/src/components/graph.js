@@ -15,7 +15,7 @@ export default function Graph({ chartData }) {
                 for (let [time, value] of entries) {
                     const yearObj = {
                         Country: country["Country Name"],
-                        Year: Number(time),
+                        Year: new Date(time),
                         "Life Exp": value
                     }
                     // console.log(yearObj, "yearObj")
@@ -35,13 +35,23 @@ export default function Graph({ chartData }) {
         if (Object.keys(finalData).length > 0) {
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
+                x: {
+                    label: "Birth year"//Let user decide
+                },
                 y: {
-                    grid: true,
-                    lable: "Life exp if born on that year (years)"
+                    domain: [70, 85],//Let user decide
+                    grid: true,//Let user decide
+                    label: "Life Expectancy (years)"//Let user decide
+
 
                 },
+                color: {
+                    legend: true//Let user decide
+                },
+
                 marks: [
-                    // Plot.ruleY([0]),
+                    Plot.ruleY([0], { y: 70 }),
+                    // Plot.ruleX([0], { x: 1995 }),
                     Plot.line(finalData, {
                         x: "Year",
                         y: "Life Exp",
@@ -55,14 +65,16 @@ export default function Graph({ chartData }) {
                         strokeWidth: 1.5,
                         marker: "dot",
                     }),
-                    Plot.text(finalData, Plot.selectLast({
-                        x: "Year",
-                        y: "Life Exp",
-                        z: "Country",
-                        text: "Country",
-                        textAnchor: "start",
-                        dx: 3
-                    }))
+                    // Plot.text(finalData, Plot.selectLast({
+                    //     x: "Year",
+                    //     y: "Life Exp",
+                    //     z: "Country",
+                    //     text: "Country",
+                    //     textAnchor: "start",//can be toggled
+                    //     dx: 10,
+                    //     dy: 10
+                    // })),
+
                 ],
                 marginTop: 50,
                 marginBottom: 50,
@@ -83,52 +95,3 @@ export default function Graph({ chartData }) {
     );
 }
 
-// Plot.plot({
-//     style: "overflow: visible;",
-//     y: {
-//       type: "log",
-//       grid: true,
-//       label: "↑ Change in price (%)",
-//       tickFormat: formatChange
-//     },
-//     marks: [
-//       Plot.ruleY([1]),
-//       Plot.line(stocks, Plot.normalizeY({
-//         x: "Date",
-//         y: "Close",
-//         stroke: "Symbol"
-//       })),
-//       Plot.text(stocks, Plot.selectLast(Plot.normalizeY({
-//         x: "Date",
-//         y: "Close",
-//         z: "Symbol",
-//         text: "Symbol",
-//         textAnchor: "start",
-//         dx: 3
-//       })))
-//     ]
-//   })
-
-
-
-// useEffect(() => {
-//     const barChart = Plot.plot({
-//         marks: [
-//             Plot.ruleY([1 / 26], { stroke: "orange", strokeWidth: 3 }),
-//             Plot.barY(data, {
-//                 x: "letter",
-//                 y: "frequency",
-//                 // sort:
-//                 //     sort === "Alphabetical"
-//                 //         ? null
-//                 //         : { x: "y", reverse: sort === "Descending" }
-//             })
-//         ],
-//         y: { grid: true },
-//         marginTop: 50,
-//         marginBottom: 50,
-//         marginLeft: 50
-//     });
-//     plotRef.current.append(barChart);
-//     return () => barChart.remove();
-// }, [data]);
