@@ -9,7 +9,10 @@ export default function Upload({ setChartData }) {
         <div className="upload">
             <CSVReader onUploadAccepted={(results) => {
                 setChartData(results);
-            }} config={{ header: true }}>
+            }} config={{
+                header: true,
+                dynamicTyping: true
+            }}>
                 {/* this set the config to treat the first row as the header, setting doc https://react-papaparse.js.org/docs#config */}
 
                 {({
