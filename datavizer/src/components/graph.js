@@ -33,8 +33,8 @@ export default function Graph({ chartData }) {
                         Year: new Date(time),
                         "Life Exp": value
                     }
-                    // console.log(yearObj, "yearObj")
-                    // console.log(typeof yearObj["Life Exp"])
+                    console.log(yearObj, "yearObj")
+                    console.log(typeof yearObj["Life Exp"])
                     if (yearObj.Country && typeof yearObj["Life Exp"] === "number") setFinalData(prev => prev.concat(yearObj))
 
                 }
