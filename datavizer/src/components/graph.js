@@ -7,9 +7,14 @@ import { useRef, useEffect, useState } from "react";
 export default function Graph({ chartData }) {
     const [finalData, setFinalData] = useState([]);
     const [labelNameX, setLabelNameX] = useState("");
-    const [legend, toggleLegend] = useState(true);
+    const [legend, toggleLegend] = useState(false);
     const [labelNameY, setLabelNameY] = useState("");
-    const [domainYStart, setDomainYStart] = useState();
+    const [domainYStart, setDomainYStart] = useState(70);
+    // const [domainYEnd, setDomainYEnd] = useState(85);
+    // const [domainY, setDomainY] = useState([70, 85])
+    const [height, setHeight] = useState(396);
+    const [width, setWidth] = useState(524);
+    const [linelabel, toggleLineLabel] = useState(false);
 
 
     useEffect(() => {
@@ -34,6 +39,7 @@ export default function Graph({ chartData }) {
     }, [chartData])
 
     console.log(finalData, "finaldata")
+    console.log(domainYStart, "domainYStart")
 
     const plotRef = useRef();
 
@@ -42,13 +48,14 @@ export default function Graph({ chartData }) {
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
                 x: {
+                    grid: true,
                     label: labelNameX
                 },
                 y: {
 
-                    // domain: 0,//Let user decide
+                    // domain: domainY,//Let user decide
                     grid: true,//Let user decide
-                    label: labelNameY
+                    label: labelNameY,
 
 
                 },
@@ -60,7 +67,7 @@ export default function Graph({ chartData }) {
                 },
 
                 marks: [
-                    Plot.ruleY([0], { y: 70 }),
+                    Plot.ruleY([0], { y: domainYStart }),
                     // Plot.ruleX([1], { stroke: "red" }),
                     // Plot.ruleX({ x: 1995 }, { stroke: "red" }),
                     Plot.line(finalData, {
@@ -84,15 +91,15 @@ export default function Graph({ chartData }) {
                         x: "Year",
                         y: "Life Exp",
                         z: "Country",
-                        text: "Country",
+                        text: linelabel ? "Country" : "",
                         textAnchor: "start",//can be toggled
                         dx: 10,
                         dy: 10
                     })),
 
                 ],
-                height: 396,//Let user decide
-                width: 524,//Let user decide
+                height: height,//Let user decide
+                width: width,//Let user decide
                 marginTop: 50,
                 marginBottom: 50,
                 marginLeft: 50
@@ -100,7 +107,9 @@ export default function Graph({ chartData }) {
             plotRef.current.append(lineChart);
             return () => lineChart.remove();
         }
-    }, [finalData, legend, labelNameX, labelNameY, domainYStart]);
+    }, [finalData, legend, labelNameX, labelNameY, domainYStart, height, width, linelabel]);
+
+
 
     function labelNameXChangeHandler(event) {
         setLabelNameX(event.target.value)
@@ -112,7 +121,21 @@ export default function Graph({ chartData }) {
 
     }
     function domainYStartChangeHandler(event) {
-        setDomainYStart(event.target.value)
+        setDomainYStart(Number(event.target.value))
+    }
+
+    // function domainYEndChangeHandler(event) {
+    //     setDomainY(prev => prev[1] = Number(event.target.value))
+    // }
+
+    function heightChangeHandler(event) {
+        setHeight(event.target.value)
+
+    }
+
+    function widthChangeHandler(event) {
+        setWidth(event.target.value)
+
     }
 
     // console.log(chartData, 'chartData from Graph')
@@ -121,6 +144,7 @@ export default function Graph({ chartData }) {
             <div ref={plotRef}></div>
             <div className="controls">
                 <input type="checkbox" checked={legend} onChange={() => toggleLegend((prev) => !prev)} /><span>legend</span>
+                <input type="checkbox" checked={linelabel} onChange={() => toggleLineLabel((prev) => !prev)} /><span>Line Label</span>
                 <form>
                     <div className="label name">
                         <label>
@@ -131,13 +155,27 @@ export default function Graph({ chartData }) {
                             Label name of Y axis:
                         </label>
                         <input type="text" name="labelNameY" onChange={labelNameYChangeHandler} />
+
                     </div>
                     <div className="domain">
-                        <span> Set domain of Y axis</span>
                         <label>
+                            Y axis starts at:
+                        </label>
+                        <input type="number" name="domainYStart" onChange={domainYStartChangeHandler} />
+                        {/* <label>
                             Start at:
                         </label>
-                        <input type="text" name="domainYStart" onChange={domainYStartChangeHandler} />
+                        <input type="number" name="domainYEnd" onChange={domainYEndChangeHandler} /> */}
+                    </div>
+                    <div className="heightandwidth">
+                        <label>
+                            Height:
+                        </label>
+                        <input type="range" name="height" min="0" max="1500" defaultValue={396} onChange={heightChangeHandler} />
+                        <label>
+                            Width:
+                        </label>
+                        <input type="range" name="width" min="0" max="1500" defaultValue={534} onChange={widthChangeHandler} />
                     </div>
                 </form>
             </div>
