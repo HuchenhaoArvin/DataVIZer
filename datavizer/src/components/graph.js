@@ -1,5 +1,6 @@
 import * as Plot from "@observablehq/plot";
 import { useRef, useEffect, useState } from "react";
+import Settings from "./settings";
 // import { data } from "../utils/data";
 // import { tidiedUpData } from "../utils/mockdata";
 
@@ -9,12 +10,15 @@ export default function Graph({ chartData }) {
     const [labelNameX, setLabelNameX] = useState("");
     const [legend, toggleLegend] = useState(false);
     const [labelNameY, setLabelNameY] = useState("");
-    const [domainYStart, setDomainYStart] = useState(70);
+    const [domainYStart, setDomainYStart] = useState(0);
     // const [domainYEnd, setDomainYEnd] = useState(85);
     // const [domainY, setDomainY] = useState([70, 85])
     const [height, setHeight] = useState(396);
     const [width, setWidth] = useState(524);
     const [linelabel, toggleLineLabel] = useState(false);
+    const [gridX, toggleGridX] = useState(false);
+    const [gridY, toggleGridY] = useState(false);
+
 
 
     useEffect(() => {
@@ -48,13 +52,13 @@ export default function Graph({ chartData }) {
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
                 x: {
-                    grid: true,
+                    grid: gridX,
                     label: labelNameX
                 },
                 y: {
 
                     // domain: domainY,//Let user decide
-                    grid: true,//Let user decide
+                    grid: gridY,//Let user decide
                     label: labelNameY,
 
 
@@ -107,78 +111,31 @@ export default function Graph({ chartData }) {
             plotRef.current.append(lineChart);
             return () => lineChart.remove();
         }
-    }, [finalData, legend, labelNameX, labelNameY, domainYStart, height, width, linelabel]);
+    }, [finalData, legend, labelNameX, labelNameY, domainYStart, height, width, linelabel, gridX, gridY]);
 
 
 
-    function labelNameXChangeHandler(event) {
-        setLabelNameX(event.target.value)
 
-    }
-
-    function labelNameYChangeHandler(event) {
-        setLabelNameY(event.target.value)
-
-    }
-    function domainYStartChangeHandler(event) {
-        setDomainYStart(Number(event.target.value))
-    }
-
-    // function domainYEndChangeHandler(event) {
-    //     setDomainY(prev => prev[1] = Number(event.target.value))
-    // }
-
-    function heightChangeHandler(event) {
-        setHeight(event.target.value)
-
-    }
-
-    function widthChangeHandler(event) {
-        setWidth(event.target.value)
-
-    }
 
     // console.log(chartData, 'chartData from Graph')
     return (
         <div className="graph">
-            <div ref={plotRef}></div>
-            <div className="controls">
-                <input type="checkbox" checked={legend} onChange={() => toggleLegend((prev) => !prev)} /><span>legend</span>
-                <input type="checkbox" checked={linelabel} onChange={() => toggleLineLabel((prev) => !prev)} /><span>Line Label</span>
-                <form>
-                    <div className="label name">
-                        <label>
-                            Label name of X axis:
-                        </label>
-                        <input type="text" name="labelNameX" onChange={labelNameXChangeHandler} />
-                        <label>
-                            Label name of Y axis:
-                        </label>
-                        <input type="text" name="labelNameY" onChange={labelNameYChangeHandler} />
+            <Settings
+                gridX={gridX}
+                gridY={gridY}
+                legend={legend}
+                linelabel={linelabel}
+                setLabelNameX={setLabelNameX}
+                toggleLegend={toggleLegend}
+                setLabelNameY={setLabelNameY}
+                setDomainYStart={setDomainYStart}
+                setHeight={setHeight}
+                setWidth={setWidth}
+                toggleLineLabel={toggleLineLabel}
+                toggleGridX={toggleGridX}
+                toggleGridY={toggleGridY} />
+            <div ref={plotRef} className="plot"></div>
 
-                    </div>
-                    <div className="domain">
-                        <label>
-                            Y axis starts at:
-                        </label>
-                        <input type="number" name="domainYStart" onChange={domainYStartChangeHandler} />
-                        {/* <label>
-                            Start at:
-                        </label>
-                        <input type="number" name="domainYEnd" onChange={domainYEndChangeHandler} /> */}
-                    </div>
-                    <div className="heightandwidth">
-                        <label>
-                            Height:
-                        </label>
-                        <input type="range" name="height" min="0" max="1500" defaultValue={396} onChange={heightChangeHandler} />
-                        <label>
-                            Width:
-                        </label>
-                        <input type="range" name="width" min="0" max="1500" defaultValue={534} onChange={widthChangeHandler} />
-                    </div>
-                </form>
-            </div>
         </div>
 
     );

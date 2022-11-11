@@ -2,8 +2,51 @@
   text-align: center;
 }
 
+.dashboard {
+  display: flex;
+  flex-direction: column;
+}
+
 .graph {
   border: 1px;
   border-width: 5px;
   border-style: solid;
+  display: flex;
+}
+
+.controls {
+  border: 1px;
+  border-width: 5px;
+  border-style: solid;
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.plot {
+  border: 1px;
+  border-width: 5px;
+  border-style: solid;
+  width: 80%;
+}
+
+.labelname {
+  display: flex;
+  flex-direction: column;
+}
+
+.heightandwidth {
+  display: flex;
+  flex-direction: column;
+}
+
+.domain {
+  display: flex;
+  flex-direction: column;
+}
+
+.clickboxes {
+  display: flex;
+  flex-direction: row;
 }
