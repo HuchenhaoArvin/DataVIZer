@@ -6,8 +6,14 @@ import { useRef, useEffect, useState } from "react";
 
 export default function Graph({ chartData }) {
     const [finalData, setFinalData] = useState([]);
+    const [labelNameX, setLabelNameX] = useState("");
+    const [legend, toggleLegend] = useState(true);
+    const [labelNameY, setLabelNameY] = useState("");
+    const [domainYStart, setDomainYStart] = useState();
+
 
     useEffect(() => {
+        //turn data into usable form for Plot
         if (Object.keys(chartData).length > 0) {
             console.log(chartData)
             chartData.data.forEach((country) => {
@@ -36,17 +42,18 @@ export default function Graph({ chartData }) {
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
                 x: {
-                    label: "Birth year"//Let user decide
+                    label: labelNameX
                 },
                 y: {
-                    domain: [70, 85],//Let user decide
+
+                    // domain: 0,//Let user decide
                     grid: true,//Let user decide
-                    label: "Life Expectancy (years)"//Let user decide
+                    label: labelNameY
 
 
                 },
                 color: {
-                    legend: true//Let user decide
+                    legend: legend//Let user decide
                 },
                 title: {
                     title: "sdfasf"
@@ -54,7 +61,8 @@ export default function Graph({ chartData }) {
 
                 marks: [
                     Plot.ruleY([0], { y: 70 }),
-                    // Plot.ruleX([0], { x: 1995 }),
+                    // Plot.ruleX([1], { stroke: "red" }),
+                    // Plot.ruleX({ x: 1995 }, { stroke: "red" }),
                     Plot.line(finalData, {
                         x: "Year",
                         y: "Life Exp",
@@ -72,17 +80,19 @@ export default function Graph({ chartData }) {
                         title: d => `Birth Year: ${d.Year.getFullYear()} \nLife Expectancy: ${d["Life Exp"]}`,
 
                     }),
-                    // Plot.text(finalData, Plot.selectLast({
-                    //     x: "Year",
-                    //     y: "Life Exp",
-                    //     z: "Country",
-                    //     text: "Country",
-                    //     textAnchor: "start",//can be toggled
-                    //     dx: 10,
-                    //     dy: 10
-                    // })),
+                    Plot.text(finalData, Plot.selectLast({
+                        x: "Year",
+                        y: "Life Exp",
+                        z: "Country",
+                        text: "Country",
+                        textAnchor: "start",//can be toggled
+                        dx: 10,
+                        dy: 10
+                    })),
 
                 ],
+                height: 396,//Let user decide
+                width: 524,//Let user decide
                 marginTop: 50,
                 marginBottom: 50,
                 marginLeft: 50
@@ -90,14 +100,65 @@ export default function Graph({ chartData }) {
             plotRef.current.append(lineChart);
             return () => lineChart.remove();
         }
-    }, [finalData]);
+    }, [finalData, legend, labelNameX, labelNameY, domainYStart]);
+
+    function labelNameXChangeHandler(event) {
+        setLabelNameX(event.target.value)
+
+    }
+
+    function labelNameYChangeHandler(event) {
+        setLabelNameY(event.target.value)
+
+    }
+    function domainYStartChangeHandler(event) {
+        setDomainYStart(event.target.value)
+    }
 
     // console.log(chartData, 'chartData from Graph')
     return (
         <div className="graph">
             <div ref={plotRef}></div>
+            <div className="controls">
+                <input type="checkbox" checked={legend} onChange={() => toggleLegend((prev) => !prev)} /><span>legend</span>
+                <form>
+                    <div className="label name">
+                        <label>
+                            Label name of X axis:
+                        </label>
+                        <input type="text" name="labelNameX" onChange={labelNameXChangeHandler} />
+                        <label>
+                            Label name of Y axis:
+                        </label>
+                        <input type="text" name="labelNameY" onChange={labelNameYChangeHandler} />
+                    </div>
+                    <div className="domain">
+                        <span> Set domain of Y axis</span>
+                        <label>
+                            Start at:
+                        </label>
+                        <input type="text" name="domainYStart" onChange={domainYStartChangeHandler} />
+                    </div>
+                </form>
+            </div>
         </div>
 
     );
 }
 
+// Plot.plot({
+//     marks: [
+//       Plot.rectY(data, Plot.binX({ y: "sum" }, { x: "date", y: "value" })),
+//       Plot.frame({ stroke: "#d3d3d3" })
+//     ],
+//     height: 396,
+//       width: 524,
+//       marginLeft: 33,
+//       marginRight: 54,
+//       marginTop: 52,
+//       marginBottom: 72,
+//       insetTop: 0,
+//       insetBottom: 0,
+//       insetLeft: 0,
+//       insetRight: 0
+//   })
