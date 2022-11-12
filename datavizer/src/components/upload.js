@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useCSVReader } from 'react-papaparse';
+import ApiService from '../utils/apiService';
 
 
 export default function Upload({ setChartData }) {
