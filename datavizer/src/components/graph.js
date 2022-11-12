@@ -1,6 +1,7 @@
 import * as Plot from "@observablehq/plot";
 import { useRef, useEffect, useState } from "react";
 import Settings from "./settings";
+import { DataProcessor } from "../utils/dataProcessor"
 // import { data } from "../utils/data";
 // import { tidiedUpData } from "../utils/mockdata";
 
@@ -21,26 +22,12 @@ export default function Graph({ chartData }) {
 
 
 
-    useEffect(() => {
-        //turn data into usable form for Plot
-        if (Object.keys(chartData).length > 0) {
-            console.log(chartData)
-            chartData.data.forEach((country) => {
-                const entries = Object.entries(country)
-                for (let [time, value] of entries) {
-                    const yearObj = {
-                        Country: country["Country Name"],
-                        Year: new Date(time),
-                        "Life Exp": value
-                    }
-                    console.log(yearObj, "yearObj")
-                    console.log(typeof yearObj["Life Exp"])
-                    if (yearObj.Country && typeof yearObj["Life Exp"] === "number") setFinalData(prev => prev.concat(yearObj))
-
-                }
-            })
-        }
-    }, [chartData])
+    // useEffect(() => {
+    //     //turn data into usable form for Plot
+    //     if (Object.keys(chartData).length > 0) {
+    //         DataProcessor.lineChart(chartData)
+    //     }
+    // }, [chartData])
 
     console.log(finalData, "finaldata")
     console.log(domainYStart, "domainYStart")

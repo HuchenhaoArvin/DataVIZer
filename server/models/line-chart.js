@@ -2,8 +2,8 @@
 
 const mongoose = require('./index');
 const lineChartSchema = new mongoose.Schema({
-    id: Number,
-    data: [{ symbol: String, series: Number, value: Number }]
+    chartId: Number,
+    data: [{ symbol: String, series: String, value: Number }]
 });
 
 // [

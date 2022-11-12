@@ -1,15 +1,18 @@
 import React from 'react';
 
 import { useCSVReader } from 'react-papaparse';
-import ApiService from '../utils/apiService';
+import { ApiService } from '../utils/apiService';
+import { DataProcessor } from "../utils/dataProcessor"
 
 
 export default function Upload({ setChartData }) {
     const { CSVReader } = useCSVReader();
     return (
         <div className="upload">
-            <CSVReader onUploadAccepted={(results) => {
-                setChartData(results);
+            <CSVReader onUploadAccepted={async (results) => {
+                const a = DataProcessor.lineChart(results)
+                console.log(a)
+                ApiService.postLineGraph(a);
             }} config={{
                 header: true,
                 dynamicTyping: true
