@@ -1,4 +1,4 @@
-'use strict'
+
 export const DataProcessor = {
 
     lineChart: function (lineChartData, chartId) {
@@ -12,7 +12,7 @@ export const DataProcessor = {
             for (let [series, value] of entries) {
                 const markObj = {
                     symbol: symbolEntry["Country Name"],
-                    series: series,
+                    series: Number(series),
                     value: value
                 }
                 console.log(markObj, "markObj")

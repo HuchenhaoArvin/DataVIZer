@@ -1,12 +1,12 @@
 import * as Plot from "@observablehq/plot";
 import { useRef, useEffect, useState } from "react";
 import Settings from "./settings";
-import { DataProcessor } from "../utils/dataProcessor"
 // import { data } from "../utils/data";
 // import { tidiedUpData } from "../utils/mockdata";
+import { ApiService } from "../utils/apiService";
 
 
-export default function Graph({ chartData }) {
+export default function Graph() {
     const [finalData, setFinalData] = useState([]);
     const [labelNameX, setLabelNameX] = useState("");
     const [legend, toggleLegend] = useState(false);
@@ -22,20 +22,24 @@ export default function Graph({ chartData }) {
 
 
 
-    // useEffect(() => {
-    //     //turn data into usable form for Plot
-    //     if (Object.keys(chartData).length > 0) {
-    //         DataProcessor.lineChart(chartData)
-    //     }
-    // }, [chartData])
+    useEffect(() => {
+        //turn data into usable form for Plot
+
+        ApiService.getLineGraph().then(data => (setFinalData(data)))
+
+        // if (Object.keys(finalData).length > 0) {
+        //     setFinalData(ApiService.getLineGraph())
+        // }
+    }, [])
 
     console.log(finalData, "finaldata")
-    console.log(domainYStart, "domainYStart")
+
 
     const plotRef = useRef();
 
     useEffect(() => {
         if (Object.keys(finalData).length > 0) {
+            console.log(finalData[0].data)
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
                 x: {
@@ -54,35 +58,35 @@ export default function Graph({ chartData }) {
                     legend: legend//Let user decide
                 },
                 title: {
-                    title: "sdfasf"
+                    title: "theLineChart"
                 },
 
                 marks: [
                     Plot.ruleY([0], { y: domainYStart }),
                     // Plot.ruleX([1], { stroke: "red" }),
                     // Plot.ruleX({ x: 1995 }, { stroke: "red" }),
-                    Plot.line(finalData, {
-                        x: "Year",
-                        y: "Life Exp",
-                        stroke: "Country",
+                    Plot.line(finalData[0].data, {
+                        x: "series",
+                        y: "value",
+                        stroke: "symbol",
                         strokeWidth: 3.1,
 
                     }),
-                    Plot.dot(finalData, {
-                        x: "Year",
-                        y: "Life Exp",
-                        fill: "Country",
+                    Plot.dot(finalData[0].data, {
+                        x: "series",
+                        y: "value",
+                        fill: "symbol",
                         // stroke: "Country",
                         // strokeWidth: 1,
                         // marker: "dot",
-                        title: d => `Birth Year: ${d.Year.getFullYear()} \nLife Expectancy: ${d["Life Exp"]}`,
+                        // title: d => `Birth Year: ${d.Year.getFullYear()} \nLife Expectancy: ${d["Life Exp"]}`,
 
                     }),
-                    Plot.text(finalData, Plot.selectLast({
-                        x: "Year",
-                        y: "Life Exp",
-                        z: "Country",
-                        text: linelabel ? "Country" : "",
+                    Plot.text(finalData[0].data, Plot.selectLast({
+                        x: "series",
+                        y: "value",
+                        z: "symbol",
+                        text: linelabel ? "symbol" : "",
                         textAnchor: "start",//can be toggled
                         dx: 10,
                         dy: 10
