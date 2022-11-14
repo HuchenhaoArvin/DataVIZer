@@ -12,10 +12,9 @@ exports.getGraph = async (ctx) => {
     }
 };
 
-exports.postGraph = ctx => {
+exports.postGraph = async (ctx) => {
     try {
-        models.postOne(ctx.request.body);
-        ctx.body = ctx.request.body
+        ctx.body = await models.postOne(ctx.request.body);
         ctx.status = 201;
     } catch (err) {
         ctx.body = err;

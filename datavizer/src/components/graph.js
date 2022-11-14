@@ -6,7 +6,7 @@ import Settings from "./settings";
 import { ApiService } from "../utils/apiService";
 
 
-export default function Graph() {
+export default function Graph({ chartData }) {
     const [finalData, setFinalData] = useState([]);
     const [labelNameX, setLabelNameX] = useState("");
     const [legend, toggleLegend] = useState(false);
@@ -22,24 +22,24 @@ export default function Graph() {
 
 
 
-    useEffect(() => {
-        //turn data into usable form for Plot
+    // useEffect(() => {
+    //     //turn data into usable form for Plot
 
-        ApiService.getLineGraph().then(data => (setFinalData(data)))
+    //     ApiService.getLineGraph().then(data => (setFinalData(data)))
 
-        // if (Object.keys(finalData).length > 0) {
-        //     setFinalData(ApiService.getLineGraph())
-        // }
-    }, [])
+    //     // if (Object.keys(finalData).length > 0) {
+    //     //     setFinalData(ApiService.getLineGraph())
+    //     // }
+    // }, [])
 
-    console.log(finalData, "finaldata")
+    console.log(chartData, "chartdata")
 
 
     const plotRef = useRef();
 
     useEffect(() => {
-        if (Object.keys(finalData).length > 0) {
-            console.log(finalData[0].data)
+        if (Object.keys(chartData).length > 0) {
+            console.log(chartData.data)
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
                 x: {
@@ -65,14 +65,14 @@ export default function Graph() {
                     Plot.ruleY([0], { y: domainYStart }),
                     // Plot.ruleX([1], { stroke: "red" }),
                     // Plot.ruleX({ x: 1995 }, { stroke: "red" }),
-                    Plot.line(finalData[0].data, {
+                    Plot.line(chartData.data, {
                         x: "series",
                         y: "value",
                         stroke: "symbol",
                         strokeWidth: 3.1,
 
                     }),
-                    Plot.dot(finalData[0].data, {
+                    Plot.dot(chartData.data, {
                         x: "series",
                         y: "value",
                         fill: "symbol",
@@ -82,7 +82,7 @@ export default function Graph() {
                         // title: d => `Birth Year: ${d.Year.getFullYear()} \nLife Expectancy: ${d["Life Exp"]}`,
 
                     }),
-                    Plot.text(finalData[0].data, Plot.selectLast({
+                    Plot.text(chartData.data, Plot.selectLast({
                         x: "series",
                         y: "value",
                         z: "symbol",
@@ -102,7 +102,7 @@ export default function Graph() {
             plotRef.current.append(lineChart);
             return () => lineChart.remove();
         }
-    }, [finalData, legend, labelNameX, labelNameY, domainYStart, height, width, linelabel, gridX, gridY]);
+    }, [chartData, legend, labelNameX, labelNameY, domainYStart, height, width, linelabel, gridX, gridY]);
 
 
 

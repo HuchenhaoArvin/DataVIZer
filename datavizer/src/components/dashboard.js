@@ -6,6 +6,7 @@ import AuthenticationButton from "./auth-button"
 import Profile from "./profile";
 import { withAuthenticationRequired } from '@auth0/auth0-react';
 import AuthLoading from "./auth-loading"
+import Publish from "./publish";
 
 
 function Dashboard() {
@@ -15,12 +16,10 @@ function Dashboard() {
         <div className="dashboard">
             <Navbar />
             <AuthenticationButton />
-
             <Profile />
-
             <Graph chartData={chartData} />
             <Upload setChartData={setChartData} />
-
+            <Publish chartData={chartData} />
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import * as Plot from "@observablehq/plot";
 import { useRef, useEffect, useState } from "react";
 import Settings from "./settings";
+import { useParams } from "react-router-dom";
 // import { data } from "../utils/data";
 // import { tidiedUpData } from "../utils/mockdata";
 import { ApiService } from "../utils/apiService";
@@ -19,6 +20,7 @@ export default function Graph() {
     const [linelabel, toggleLineLabel] = useState(false);
     const [gridX, toggleGridX] = useState(false);
     const [gridY, toggleGridY] = useState(false);
+    const { graphId } = useParams();
 
 
 
@@ -111,6 +113,7 @@ export default function Graph() {
     // console.log(chartData, 'chartData from Graph')
     return (
         <div className="graph">
+            <h1>{graphId}</h1>
             <Settings
                 gridX={gridX}
                 gridY={gridY}

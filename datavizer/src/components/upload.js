@@ -11,8 +11,9 @@ export default function Upload({ setChartData }) {
         <div className="upload">
             <CSVReader onUploadAccepted={async (results) => {
                 const a = DataProcessor.lineChart(results)
+                setChartData(a)
                 console.log(a)
-                ApiService.postLineGraph(a);
+
             }} config={{
                 header: true,
                 dynamicTyping: true

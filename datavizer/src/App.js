@@ -20,7 +20,7 @@ function App() {
           {/* <Route path="/" element={<LoginButton />}/> */}
           <Route path="/" element={<LandingPage />} />
           <Route path="dashboard" element={<Dashboard />} />
-          <Route path="embed" element={<Embed />} />
+          <Route path="embed/:graphId" element={<Embed />} />
         </Routes>
       </BrowserRouter>
     );

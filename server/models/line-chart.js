@@ -49,9 +49,17 @@ exports.getAll = async () => {
 exports.postOne = async (data) => {
     try {
         const lineChart = new LineChart(data);
-        lineChart.save();
+        lineChart.save(function (err, lineChart) {
+            let newChartId = lineChart.id
+            console.log(newChartId, "id")
+        }
+        );
+
     } catch (error) {
         console.log(error);
     }
 };
 
+// n.save(function (err, room) {
+//     var newRoomId = room._id;
+// });
