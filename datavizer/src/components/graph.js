@@ -3,14 +3,14 @@ import { useRef, useEffect, useState } from "react";
 import Settings from "./settings";
 // import { data } from "../utils/data";
 // import { tidiedUpData } from "../utils/mockdata";
-import { ApiService } from "../utils/apiService";
+// import { ApiService } from "../utils/apiService";
 
 
-export default function Graph({ chartData }) {
-    const [finalData, setFinalData] = useState([]);
-    const [labelNameX, setLabelNameX] = useState("");
+export default function Graph({ chartData, chartSetting, setChartSetting }) {
+    // const [finalData, setFinalData] = useState([]);
+    const [labelNameX, setLabelNameX] = useState("X axis");
     const [legend, toggleLegend] = useState(false);
-    const [labelNameY, setLabelNameY] = useState("");
+    const [labelNameY, setLabelNameY] = useState("Y axis");
     const [domainYStart, setDomainYStart] = useState(0);
     // const [domainYEnd, setDomainYEnd] = useState(85);
     // const [domainY, setDomainY] = useState([70, 85])
@@ -32,7 +32,24 @@ export default function Graph({ chartData }) {
     //     // }
     // }, [])
 
-    console.log(chartData, "chartdata")
+    // useEffect(() => {
+    //     setChartSetting({
+    //         ...chartSetting,
+    //         legend: legend,
+    //         labelNameX: labelNameX,
+    //         labelNameY: labelNameY,
+    //         domainYStart: domainYStart,
+    //         height: height,
+    //         width: width,
+    //         linelabel: linelabel,
+    //         gridX: gridX,
+    //         gridY: gridY,
+
+    //     })
+    // }, [])
+
+    // console.log(chartData, "chartdata")
+    // console.log(chartSetting, "chartSetting")
 
 
     const plotRef = useRef();
@@ -102,20 +119,43 @@ export default function Graph({ chartData }) {
             plotRef.current.append(lineChart);
             return () => lineChart.remove();
         }
+
+
     }, [chartData, legend, labelNameX, labelNameY, domainYStart, height, width, linelabel, gridX, gridY]);
 
 
+    function saveSettingsHandler() {
+        setChartSetting({
+            settings: {
+                legend: legend,
+                labelNameX: labelNameX,
+                labelNameY: labelNameY,
+                domainYStart: domainYStart,
+                height: height,
+                width: width,
+                linelabel: linelabel,
+                gridX: gridX,
+                gridY: gridY,
 
+            }
+        })
+    }
 
 
     // console.log(chartData, 'chartData from Graph')
     return (
         <div className="graph">
             <Settings
+                setChartSetting={setChartSetting}
                 gridX={gridX}
                 gridY={gridY}
                 legend={legend}
                 linelabel={linelabel}
+                labelNameX={labelNameX}
+                labelNameY={labelNameY}
+                domainYStart={domainYStart}
+                height={height}
+                width={width}
                 setLabelNameX={setLabelNameX}
                 toggleLegend={toggleLegend}
                 setLabelNameY={setLabelNameY}
@@ -125,7 +165,12 @@ export default function Graph({ chartData }) {
                 toggleLineLabel={toggleLineLabel}
                 toggleGridX={toggleGridX}
                 toggleGridY={toggleGridY} />
+            <div className="savesettings">
+                <button onClick={() => saveSettingsHandler()}>Save Your Settings</button>
+            </div>
             <div ref={plotRef} className="plot"></div>
+
+
 
         </div>
 

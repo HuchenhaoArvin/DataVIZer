@@ -9,9 +9,9 @@ import { ApiService } from "../utils/apiService";
 
 export default function Graph() {
     const [finalData, setFinalData] = useState([]);
-    const [labelNameX, setLabelNameX] = useState("");
+    const [labelNameX, setLabelNameX] = useState("X axis");
     const [legend, toggleLegend] = useState(false);
-    const [labelNameY, setLabelNameY] = useState("");
+    const [labelNameY, setLabelNameY] = useState("Y axis");
     const [domainYStart, setDomainYStart] = useState(0);
     // const [domainYEnd, setDomainYEnd] = useState(85);
     // const [domainY, setDomainY] = useState([70, 85])
@@ -32,9 +32,38 @@ export default function Graph() {
         // if (Object.keys(finalData).length > 0) {
         //     setFinalData(ApiService.getLineGraph())
         // }
-    }, [])
+    }, [graphId])
 
     console.log(finalData, "finaldata")
+
+
+
+
+
+
+
+    // console.log(finalData.settings.legend, "finalData.settings.legend")
+    useEffect(() => {
+        //init with db settings
+
+        if (Object.keys(finalData).length > 0) {
+            toggleLegend(finalData.settings.legend);
+            setLabelNameX(finalData.settings.labelNameX);
+            setLabelNameY(finalData.settings.labelNameY);
+            setDomainYStart(finalData.settings.domainYStart);
+            setHeight(finalData.settings.height)
+            setWidth(finalData.settings.width)
+            toggleLineLabel(finalData.settings.linelabel)
+            toggleGridX(finalData.settings.gridX)
+            toggleGridY(finalData.settings.gridY)
+        }
+    }, [finalData])
+
+    // "settings":{"legend":false,"labelNameX":"","labelNameY":"","domainYStart":0,"height":396,"width":524,"linelabel":true,"gridX":true,"gridY":false}
+
+
+
+
 
 
     const plotRef = useRef();

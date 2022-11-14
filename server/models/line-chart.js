@@ -2,9 +2,34 @@
 
 const mongoose = require('./index');
 const lineChartSchema = new mongoose.Schema({
-    chartId: Number,
-    data: [{ symbol: String, series: Number, value: Number }]
+    data: [{ symbol: String, series: Number, value: Number }],
+    settings: {
+        legend: Boolean,
+        labelNameX: String,
+        labelNameY: String,
+        domainYStart: Number,
+        height: Number,
+        width: Number,
+        linelabel: Boolean,
+        gridX: Boolean,
+        gridY: Boolean
+    }
 });
+
+// {
+
+//     "settings": {
+//         "legend": false,
+//         "labelNameX": "",
+//         "labelNameY": "",
+//         "domainYStart": 0,
+//         "height": 396,
+//         "width": 524,
+//         "linelabel": false,
+//         "gridX": true,
+//         "gridY": true
+//     }
+// }
 
 // [
 //     {

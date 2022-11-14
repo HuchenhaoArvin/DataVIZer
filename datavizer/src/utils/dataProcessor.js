@@ -26,7 +26,7 @@ export const DataProcessor = {
         )
 
 
-        const finalData = { chartId: chartId, data: processedData }
+        const finalData = { data: processedData }
         console.log(processedData, "processedData")
         console.log(finalData, "finalData")
         return finalData

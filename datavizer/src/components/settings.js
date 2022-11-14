@@ -1,4 +1,4 @@
-export default function Settings({ gridX, gridY, legend, linelabel, setLabelNameX, toggleLegend, setLabelNameY, setDomainYStart, setHeight, setWidth, toggleLineLabel, toggleGridX, toggleGridY }) {
+export default function Settings({ height, width, gridX, gridY, legend, linelabel, labelNameX, labelNameY, domainYStart, setLabelNameX, toggleLegend, setLabelNameY, setDomainYStart, setHeight, setWidth, toggleLineLabel, toggleGridX, toggleGridY, setChartSetting }) {
     function labelNameXChangeHandler(event) {
         setLabelNameX(event.target.value)
 
@@ -27,6 +27,8 @@ export default function Settings({ gridX, gridY, legend, linelabel, setLabelName
     }
 
 
+
+
     return (
         <div className="controls">
             <div className="clickboxes">
@@ -44,11 +46,11 @@ export default function Settings({ gridX, gridY, legend, linelabel, setLabelName
                     <label>
                         Label name of X axis:
                     </label>
-                    <input type="text" name="labelNameX" defaultValue={"X axis"} onChange={labelNameXChangeHandler} />
+                    <input type="text" name="labelNameX" defaultValue={"ie: X axis"} onChange={labelNameXChangeHandler} />
                     <label>
                         Label name of Y axis:
                     </label>
-                    <input type="text" name="labelNameY" defaultValue={"Y axis"} onChange={labelNameYChangeHandler} />
+                    <input type="text" name="labelNameY" defaultValue={"ie: Y axis"} onChange={labelNameYChangeHandler} />
 
                 </div>
                 <div className="domain">
@@ -71,6 +73,7 @@ export default function Settings({ gridX, gridY, legend, linelabel, setLabelName
                     </label>
                     <input type="range" name="width" min="0" max="1500" defaultValue={534} onChange={widthChangeHandler} />
                 </div>
+
             </form>
         </div>
 

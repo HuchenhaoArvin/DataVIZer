@@ -11,15 +11,17 @@ import Publish from "./publish";
 
 function Dashboard() {
     const [chartData, setChartData] = useState({})
+    const [chartSetting, setChartSetting] = useState({})
+
 
     return (
         <div className="dashboard">
             <Navbar />
             <AuthenticationButton />
             <Profile />
-            <Graph chartData={chartData} />
+            <Graph chartData={chartData} chartSetting={chartSetting} setChartSetting={setChartSetting} />
             <Upload setChartData={setChartData} />
-            <Publish chartData={chartData} />
+            <Publish chartData={chartData} chartSetting={chartSetting} />
         </div>
     );
 }
