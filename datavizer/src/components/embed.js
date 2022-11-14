@@ -27,7 +27,7 @@ export default function Graph() {
     useEffect(() => {
         //turn data into usable form for Plot
 
-        ApiService.getLineGraph().then(data => (setFinalData(data)))
+        ApiService.getLineGraphById(graphId).then(data => (setFinalData(data))).catch(error => console.log(error))
 
         // if (Object.keys(finalData).length > 0) {
         //     setFinalData(ApiService.getLineGraph())
@@ -41,7 +41,7 @@ export default function Graph() {
 
     useEffect(() => {
         if (Object.keys(finalData).length > 0) {
-            console.log(finalData[0].data)
+            console.log(finalData.data)
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
                 x: {
@@ -59,32 +59,32 @@ export default function Graph() {
                 color: {
                     legend: legend//Let user decide
                 },
-                title: {
-                    title: "theLineChart"
-                },
+                // title: {
+                //     title: "theLineChart"
+                // },
 
                 marks: [
                     Plot.ruleY([0], { y: domainYStart }),
                     // Plot.ruleX([1], { stroke: "red" }),
                     // Plot.ruleX({ x: 1995 }, { stroke: "red" }),
-                    Plot.line(finalData[0].data, {
+                    Plot.line(finalData.data, {
                         x: "series",
                         y: "value",
                         stroke: "symbol",
                         strokeWidth: 3.1,
 
                     }),
-                    Plot.dot(finalData[0].data, {
+                    Plot.dot(finalData.data, {
                         x: "series",
                         y: "value",
                         fill: "symbol",
                         // stroke: "Country",
                         // strokeWidth: 1,
                         // marker: "dot",
-                        // title: d => `Birth Year: ${d.Year.getFullYear()} \nLife Expectancy: ${d["Life Exp"]}`,
+                        title: d => `X: ${d.series} \nY: ${d.value}`,
 
                     }),
-                    Plot.text(finalData[0].data, Plot.selectLast({
+                    Plot.text(finalData.data, Plot.selectLast({
                         x: "series",
                         y: "value",
                         z: "symbol",
@@ -113,7 +113,6 @@ export default function Graph() {
     // console.log(chartData, 'chartData from Graph')
     return (
         <div className="graph">
-            <h1>{graphId}</h1>
             <Settings
                 gridX={gridX}
                 gridY={gridY}
@@ -135,19 +134,3 @@ export default function Graph() {
     );
 }
 
-// Plot.plot({
-//     marks: [
-//       Plot.rectY(data, Plot.binX({ y: "sum" }, { x: "date", y: "value" })),
-//       Plot.frame({ stroke: "#d3d3d3" })
-//     ],
-//     height: 396,
-//       width: 524,
-//       marginLeft: 33,
-//       marginRight: 54,
-//       marginTop: 52,
-//       marginBottom: 72,
-//       insetTop: 0,
-//       insetBottom: 0,
-//       insetLeft: 0,
-//       insetRight: 0
-//   })

@@ -38,7 +38,7 @@ const LineChart = mongoose.model('line-chart', lineChartSchema);
 
 exports.getAll = async () => {
     try {
-        let res = await LineChart.find();
+        const res = await LineChart.find();
         console.log(res, 'res')
         return res;
     } catch (error) {

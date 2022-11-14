@@ -8,16 +8,12 @@
 }
 
 .graph {
-  border: 1px;
-  border-width: 5px;
-  border-style: solid;
+  border: 5px solid;
   display: flex;
 }
 
 .controls {
-  border: 1px;
-  border-width: 5px;
-  border-style: solid;
+  border: 5px solid;
   display: flex;
   width: 20%;
   flex-direction: column;
@@ -25,9 +21,7 @@
 }
 
 .plot {
-  border: 1px;
-  border-width: 5px;
-  border-style: solid;
+  border: 5px solid;
   width: 80%;
 }
 

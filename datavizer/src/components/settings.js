@@ -30,10 +30,14 @@ export default function Settings({ gridX, gridY, legend, linelabel, setLabelName
     return (
         <div className="controls">
             <div className="clickboxes">
-                <input type="checkbox" checked={legend} onChange={() => toggleLegend((prev) => !prev)} /><span>legend</span>
-                <input type="checkbox" checked={linelabel} onChange={() => toggleLineLabel((prev) => !prev)} /><span>Line Label</span>
-                <input type="checkbox" checked={gridX} onChange={() => toggleGridX((prev) => !prev)} /><span>X grid</span>
-                <input type="checkbox" checked={gridY} onChange={() => toggleGridY((prev) => !prev)} /><span>Y grid</span>
+                <label htmlFor="legend">legend</label>
+                <input type="checkbox" name="legend" checked={legend} onChange={() => toggleLegend((prev) => !prev)} />
+                <label htmlFor="linelabel">Line Label</label>
+                <input type="checkbox" name="linelabel" checked={linelabel} onChange={() => toggleLineLabel((prev) => !prev)} />
+                <label htmlFor="gridX">X Grid</label>
+                <input type="checkbox" name="gridX" checked={gridX} onChange={() => toggleGridX((prev) => !prev)} />
+                <label htmlFor="gridY">Y Grid</label>
+                <input type="checkbox" name="gridY" checked={gridY} onChange={() => toggleGridY((prev) => !prev)} />
             </div>
             <form>
                 <div className="labelname">

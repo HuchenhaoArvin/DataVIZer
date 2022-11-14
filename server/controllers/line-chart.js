@@ -8,7 +8,7 @@ exports.getGraph = async (ctx) => {
         ctx.status = 200;
     } catch (err) {
         ctx.body = err;
-        ctx.status = 500;
+        ctx.status = 400;
     }
 };
 
@@ -18,7 +18,7 @@ exports.getGraphById = async (ctx) => {
         ctx.status = 200;
     } catch (err) {
         ctx.body = err;
-        ctx.status = 500;
+        ctx.status = 400;
     }
 };
 
@@ -28,6 +28,6 @@ exports.postGraph = async (ctx) => {
         ctx.status = 201;
     } catch (err) {
         ctx.body = err;
-        ctx.status = 500;
+        ctx.status = 400;
     }
 };

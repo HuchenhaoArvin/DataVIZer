@@ -21,15 +21,15 @@ export const ApiService = {
             console.log(error)
         }
     },
-    // getLineGraphById: async function (id) {
+    getLineGraphById: async function (id) {
 
-    //     try {
-    //         const res = await fetch(BASE_URL + "/graph", options);
-    //         return res.json()
-    //     }
-    //     catch (error) {
-    //         console.log(error)
-    //     }
+        try {
+            const res = await fetch(`${BASE_URL}/graph/${id}`);
+            return res.json()
+        }
+        catch (error) {
+            console.log(error)
+        }
 
-    // }
+    }
 }

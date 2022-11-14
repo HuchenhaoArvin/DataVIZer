@@ -10,9 +10,9 @@ export default function Upload({ setChartData }) {
     return (
         <div className="upload">
             <CSVReader onUploadAccepted={async (results) => {
-                const a = DataProcessor.lineChart(results)
-                setChartData(a)
-                console.log(a)
+                const processedData = DataProcessor.lineChart(results)
+                setChartData(processedData)
+                console.log(processedData)
 
             }} config={{
                 header: true,
