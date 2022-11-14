@@ -49,11 +49,33 @@ exports.getAll = async () => {
 exports.postOne = async (data) => {
     try {
         const lineChart = new LineChart(data);
-        lineChart.save(function (err, lineChart) {
-            let newChartId = lineChart.id
-            console.log(newChartId, "id")
-        }
-        );
+        const res = await lineChart.save();
+        const resfinal = { id: res._id.toString() }
+        return resfinal
+        // console.log(res, "res")
+        // console.log(res._id.toString())
+        // lineChart.save(function (err, lineChart) {
+        //     let newChartId = lineChart.id
+        //     console.log(newChartId, "id")
+        // }
+        // );
+
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+exports.getById = async (id) => {
+    try {
+        const res = await LineChart.findById(id)
+        return res
+        // console.log(res, "res")
+        // console.log(res._id.toString())
+        // lineChart.save(function (err, lineChart) {
+        //     let newChartId = lineChart.id
+        //     console.log(newChartId, "id")
+        // }
+        // );
 
     } catch (error) {
         console.log(error);

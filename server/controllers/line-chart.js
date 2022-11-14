@@ -12,6 +12,16 @@ exports.getGraph = async (ctx) => {
     }
 };
 
+exports.getGraphById = async (ctx) => {
+    try {
+        ctx.body = await models.getById(ctx.params.id);
+        ctx.status = 200;
+    } catch (err) {
+        ctx.body = err;
+        ctx.status = 500;
+    }
+};
+
 exports.postGraph = async (ctx) => {
     try {
         ctx.body = await models.postOne(ctx.request.body);
