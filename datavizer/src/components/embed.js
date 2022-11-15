@@ -39,9 +39,6 @@ export default function Graph() {
 
 
 
-
-
-
     // console.log(finalData.settings.legend, "finalData.settings.legend")
     useEffect(() => {
         //init with db settings
@@ -141,21 +138,23 @@ export default function Graph() {
 
     // console.log(chartData, 'chartData from Graph')
     return (
-        <div className="graph">
-            <Settings
-                gridX={gridX}
-                gridY={gridY}
-                legend={legend}
-                linelabel={linelabel}
-                setLabelNameX={setLabelNameX}
-                toggleLegend={toggleLegend}
-                setLabelNameY={setLabelNameY}
-                setDomainYStart={setDomainYStart}
-                setHeight={setHeight}
-                setWidth={setWidth}
-                toggleLineLabel={toggleLineLabel}
-                toggleGridX={toggleGridX}
-                toggleGridY={toggleGridY} />
+        <div className="graphembed">
+            <div className="settingsleft">
+                <Settings
+                    gridX={gridX}
+                    gridY={gridY}
+                    legend={legend}
+                    linelabel={linelabel}
+                    setLabelNameX={setLabelNameX}
+                    toggleLegend={toggleLegend}
+                    setLabelNameY={setLabelNameY}
+                    setDomainYStart={setDomainYStart}
+                    setHeight={setHeight}
+                    setWidth={setWidth}
+                    toggleLineLabel={toggleLineLabel}
+                    toggleGridX={toggleGridX}
+                    toggleGridY={toggleGridY} />
+            </div>
             <div ref={plotRef} className="plot"></div>
 
         </div>

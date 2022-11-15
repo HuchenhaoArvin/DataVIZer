@@ -1,10 +1,13 @@
 .App {
   text-align: center;
+  background-color: rgb(241, 241, 241);
 }
 
 .dashboard {
   display: flex;
   flex-direction: column;
+  background-color: rgb(241, 241, 241);
+
 }
 
 .graph {
@@ -12,6 +15,12 @@
   margin: 1.5vw;
   width: 95%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.graphembed {
+  display: flex;
+  margin: 1.5vw;
+  width: 100%;
 }
 
 .navbar {

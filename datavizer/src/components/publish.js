@@ -48,7 +48,7 @@ export default function Publish({ chartData, chartSetting }) {
     return (
         <>
             {hasdata ? <button className="publishbutton" onClick={() => publishhandler(chartData, chartSetting)}>Publish</button> : <></>}
-            {clicked ? <div className="publishdropdown">{`Embed on your website:<iframe src="http://127.0.0.1:3000/embed/${chartId.id}" frameborder='0' scrolling='no' style='width:100%;height:600px;'
+            {clicked ? <div className="publishdropdown">{`Embed on your website:<iframe src="http://127.0.0.1:3000/embed/${chartId.id}" frameborder='0' scrolling='no' style='width:100%;height:560px;'
                 sandbox='allow-same-origin allow-forms allow-scripts'></iframe>`}
             </div> : <></>}
         </>
