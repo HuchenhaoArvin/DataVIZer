@@ -24,12 +24,11 @@ export default function Upload({ setChartData }) {
                     getRootProps,
                     acceptedFile,
                     ProgressBar,
-                    getRemoveFileProps,
                 }) => (
                     <>
-                        <div>
-                            <button type='button' {...getRootProps()}>
-                                Browse file
+                        <div className='uploadbuttonwrapper'>
+                            <button type='button' className='uploadbutton' {...getRootProps()}>
+                                Upload CSV File
                             </button>
                             <div>
                                 {acceptedFile && acceptedFile.name}

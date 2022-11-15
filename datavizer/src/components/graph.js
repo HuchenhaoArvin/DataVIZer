@@ -14,11 +14,12 @@ export default function Graph({ chartData, chartSetting, setChartSetting }) {
     const [domainYStart, setDomainYStart] = useState(0);
     // const [domainYEnd, setDomainYEnd] = useState(85);
     // const [domainY, setDomainY] = useState([70, 85])
-    const [height, setHeight] = useState(396);
+    const [height, setHeight] = useState(487);
     const [width, setWidth] = useState(524);
     const [linelabel, toggleLineLabel] = useState(false);
     const [gridX, toggleGridX] = useState(false);
     const [gridY, toggleGridY] = useState(false);
+    const [settingsaved, toggleSettingSaved] = useState(false)
 
 
 
@@ -55,13 +56,15 @@ export default function Graph({ chartData, chartSetting, setChartSetting }) {
     const plotRef = useRef();
 
     useEffect(() => {
+        toggleSettingSaved(false)
         if (Object.keys(chartData).length > 0) {
             console.log(chartData.data)
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
                 x: {
                     grid: gridX,
-                    label: labelNameX
+                    label: labelNameX,
+                    // transform: d => String(d) //can transfrom, but a whole solution needed for dealing with Dates
                 },
                 y: {
 
@@ -115,7 +118,10 @@ export default function Graph({ chartData, chartSetting, setChartSetting }) {
             });
             plotRef.current.append(lineChart);
             return () => lineChart.remove();
-        }
+        };
+
+
+
 
 
     }, [chartData, legend, labelNameX, labelNameY, domainYStart, height, width, linelabel, gridX, gridY]);
@@ -136,34 +142,38 @@ export default function Graph({ chartData, chartSetting, setChartSetting }) {
 
             }
         })
+        toggleSettingSaved((prev) => !prev)
     }
 
 
     // console.log(chartData, 'chartData from Graph')
     return (
         <div className="graph">
-            <Settings
-                setChartSetting={setChartSetting}
-                gridX={gridX}
-                gridY={gridY}
-                legend={legend}
-                linelabel={linelabel}
-                labelNameX={labelNameX}
-                labelNameY={labelNameY}
-                domainYStart={domainYStart}
-                height={height}
-                width={width}
-                setLabelNameX={setLabelNameX}
-                toggleLegend={toggleLegend}
-                setLabelNameY={setLabelNameY}
-                setDomainYStart={setDomainYStart}
-                setHeight={setHeight}
-                setWidth={setWidth}
-                toggleLineLabel={toggleLineLabel}
-                toggleGridX={toggleGridX}
-                toggleGridY={toggleGridY} />
-            <div className="savesettings">
-                <button onClick={() => saveSettingsHandler()}>Save Your Settings Before Publish</button>
+            <div className="settingsleft">
+                <Settings
+                    setChartSetting={setChartSetting}
+                    gridX={gridX}
+                    gridY={gridY}
+                    legend={legend}
+                    linelabel={linelabel}
+                    labelNameX={labelNameX}
+                    labelNameY={labelNameY}
+                    domainYStart={domainYStart}
+                    height={height}
+                    width={width}
+                    setLabelNameX={setLabelNameX}
+                    toggleLegend={toggleLegend}
+                    setLabelNameY={setLabelNameY}
+                    setDomainYStart={setDomainYStart}
+                    setHeight={setHeight}
+                    setWidth={setWidth}
+                    toggleLineLabel={toggleLineLabel}
+                    toggleGridX={toggleGridX}
+                    toggleGridY={toggleGridY} />
+
+                <button className="savesettings" onClick={() => saveSettingsHandler()}>Save Your Settings</button>
+                {settingsaved ? <div>Settings Saved</div> : <></>}
+
             </div>
             <div ref={plotRef} className="plot"></div>
 
