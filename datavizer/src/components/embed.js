@@ -110,7 +110,7 @@ export default function Graph() {
                         // stroke: "Country",
                         // strokeWidth: 1,
                         // marker: "dot",
-                        title: d => `X: ${d.series} \nY: ${d.value}`,
+                        title: d => `${d.symbol}\n${labelNameX}: ${d.series} \n${labelNameY}: ${d.value}`,
 
                     }),
                     Plot.text(finalData.data, Plot.selectLast({

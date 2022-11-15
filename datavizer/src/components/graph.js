@@ -74,9 +74,6 @@ export default function Graph({ chartData, chartSetting, setChartSetting }) {
                 color: {
                     legend: legend//Let user decide
                 },
-                title: {
-                    title: "theLineChart"
-                },
 
                 marks: [
                     Plot.ruleY([0], { y: domainYStart }),
@@ -96,7 +93,7 @@ export default function Graph({ chartData, chartSetting, setChartSetting }) {
                         // stroke: "Country",
                         // strokeWidth: 1,
                         // marker: "dot",
-                        // title: d => `Birth Year: ${d.Year.getFullYear()} \nLife Expectancy: ${d["Life Exp"]}`,
+                        title: d => `${d.symbol}\n${labelNameX}: ${d.series} \n${labelNameY}: ${d.value}`,
 
                     }),
                     Plot.text(chartData.data, Plot.selectLast({
@@ -166,7 +163,7 @@ export default function Graph({ chartData, chartSetting, setChartSetting }) {
                 toggleGridX={toggleGridX}
                 toggleGridY={toggleGridY} />
             <div className="savesettings">
-                <button onClick={() => saveSettingsHandler()}>Save Your Settings</button>
+                <button onClick={() => saveSettingsHandler()}>Save Your Settings Before Publish</button>
             </div>
             <div ref={plotRef} className="plot"></div>
 

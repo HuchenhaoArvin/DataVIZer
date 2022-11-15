@@ -17,11 +17,10 @@ function Dashboard() {
     return (
         <div className="dashboard">
             <Navbar />
-            <AuthenticationButton />
-            <Profile />
-            <Graph chartData={chartData} chartSetting={chartSetting} setChartSetting={setChartSetting} />
             <Upload setChartData={setChartData} />
             <Publish chartData={chartData} chartSetting={chartSetting} />
+            <Graph chartData={chartData} chartSetting={chartSetting} setChartSetting={setChartSetting} />
+
         </div>
     );
 }

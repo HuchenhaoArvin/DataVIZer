@@ -34,9 +34,9 @@ export default function Upload({ setChartData }) {
                             <div>
                                 {acceptedFile && acceptedFile.name}
                             </div>
-                            <button {...getRemoveFileProps()} >
+                            {/* <button {...getRemoveFileProps()} >
                                 Remove
-                            </button>
+                            </button> */}
                         </div>
                         <ProgressBar />
                     </>

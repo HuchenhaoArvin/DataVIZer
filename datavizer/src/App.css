@@ -12,6 +12,72 @@
   display: flex;
 }
 
+.navbar {
+  display: flex;
+  box-shadow: 0px 3px 2px #d7d7d7;
+  height: 55px;
+}
+
+.navlogo {
+  position: absolute;
+  display: block;
+  height: 55px;
+  margin: auto;
+  left: 45%;
+}
+
+/* #223461 */
+
+.profile {
+  display: flex;
+  height: 55px;
+}
+
+.landingpage {
+  display: flex;
+  flex-direction: column;
+
+
+}
+
+.landingcontent {
+  /* background-image: url(./utils/landing-page.jpg);
+  background-position: center;
+  background-repeat: no-repeat; */
+  width: 100%;
+  height: auto;
+  font-size: 5.5vw;
+  /* top: 50%;
+  left: 50%; */
+  /* position: absolute; */
+  /* transform: translate(-50%, -50%); */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+}
+
+.landingimg {
+  width: 45%;
+  opacity: 0.8;
+  margin: 5vw;
+}
+
+.landingtitle {
+  position: relative;
+  color: #223461;
+  margin-bottom: 2vw;
+}
+
+.landingtextwrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.landingintro {
+  font-size: 3vw;
+}
+
 .controls {
   border: 5px solid;
   display: flex;
@@ -43,4 +109,9 @@
 .clickboxes {
   display: flex;
   flex-direction: row;
+}
+
+button {
+  color: #223461;
+  background-color: #223461;
 }
