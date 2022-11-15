@@ -41,7 +41,7 @@ export default function Settings({ height, width, gridX, gridY, legend, linelabe
                 <label htmlFor="gridY">Y Grid</label>
                 <input type="checkbox" name="gridY" checked={gridY} onChange={() => toggleGridY((prev) => !prev)} />
             </div>
-            <form>
+            <form className="settingsform">
                 <div className="labelname">
                     <label>
                         Label name of X axis:
@@ -64,10 +64,10 @@ export default function Settings({ height, width, gridX, gridY, legend, linelabe
                 <input type="number" name="domainYEnd" onChange={domainYEndChangeHandler} /> */}
                 </div>
                 <div className="heightandwidth">
-                    <label>
+                    {/* <label>
                         Height:
                     </label>
-                    <input type="range" name="height" min="0" max="1500" defaultValue={396} onChange={heightChangeHandler} />
+                    <input type="range" name="height" min="0" max="1500" defaultValue={396} onChange={heightChangeHandler} /> */}
                     <label>
                         Width:
                     </label>

@@ -64,7 +64,7 @@ export default function Graph({ chartData, chartSetting, setChartSetting }) {
                 x: {
                     grid: gridX,
                     label: labelNameX,
-                    // transform: d => String(d) //can transfrom, but a whole solution needed for dealing with Dates
+                    transform: d => new Date(String(d)) //can transfrom, but a whole solution needed for dealing with Dates
                 },
                 y: {
 
