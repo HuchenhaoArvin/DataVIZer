@@ -12,10 +12,6 @@ export default function Settings({ height, width, gridX, gridY, legend, linelabe
         setDomainYStart(Number(event.target.value))
     }
 
-    // function domainYEndChangeHandler(event) {
-    //     setDomainY(prev => prev[1] = Number(event.target.value))
-    // }
-
     function heightChangeHandler(event) {
         setHeight(event.target.value)
 
@@ -58,16 +54,8 @@ export default function Settings({ height, width, gridX, gridY, legend, linelabe
                         Y axis starts at:
                     </label>
                     <input type="number" name="domainYStart" defaultValue={0} onChange={domainYStartChangeHandler} />
-                    {/* <label>
-                    Start at:
-                </label>
-                <input type="number" name="domainYEnd" onChange={domainYEndChangeHandler} /> */}
                 </div>
                 <div className="heightandwidth">
-                    {/* <label>
-                        Height:
-                    </label>
-                    <input type="range" name="height" min="0" max="1500" defaultValue={396} onChange={heightChangeHandler} /> */}
                     <label>
                         Width:
                     </label>

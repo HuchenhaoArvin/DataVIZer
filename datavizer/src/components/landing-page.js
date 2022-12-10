@@ -1,5 +1,4 @@
 import Navbar from "./navbar";
-import AuthenticationButton from "./auth-button"
 import landingimg from '../utils/landing-page.jpg'
 
 
@@ -16,7 +15,7 @@ export default function LandingPage() {
                     <div className="landingintro">Login to make your own data visualization</div>
                 </div>
             </div>
-            {/* <AuthenticationButton /> */}
+
 
         </div>
     );

@@ -12,7 +12,6 @@ export const ApiService = {
     },
     postLineGraph: async function (linegraph) {
         const options = { method: "POST", headers: { "Content-type": "application/json" }, body: JSON.stringify(linegraph) }
-        console.log(options.body, "options.body")
         try {
             const res = await fetch(BASE_URL + "/graph", options);
             return res.json()

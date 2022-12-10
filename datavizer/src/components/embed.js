@@ -2,8 +2,6 @@ import * as Plot from "@observablehq/plot";
 import { useRef, useEffect, useState } from "react";
 import Settings from "./settings";
 import { useParams } from "react-router-dom";
-// import { data } from "../utils/data";
-// import { tidiedUpData } from "../utils/mockdata";
 import { ApiService } from "../utils/apiService";
 
 
@@ -13,8 +11,6 @@ export default function Graph() {
     const [legend, toggleLegend] = useState(false);
     const [labelNameY, setLabelNameY] = useState("Y axis");
     const [domainYStart, setDomainYStart] = useState(0);
-    // const [domainYEnd, setDomainYEnd] = useState(85);
-    // const [domainY, setDomainY] = useState([70, 85])
     const [height, setHeight] = useState(396);
     const [width, setWidth] = useState(524);
     const [linelabel, toggleLineLabel] = useState(false);
@@ -25,24 +21,11 @@ export default function Graph() {
 
 
     useEffect(() => {
-        //turn data into usable form for Plot
-
         ApiService.getLineGraphById(graphId).then(data => (setFinalData(data))).catch(error => console.log(error))
-
-        // if (Object.keys(finalData).length > 0) {
-        //     setFinalData(ApiService.getLineGraph())
-        // }
     }, [graphId])
 
-    console.log(finalData, "finaldata")
 
-
-
-
-    // console.log(finalData.settings.legend, "finalData.settings.legend")
     useEffect(() => {
-        //init with db settings
-
         if (Object.keys(finalData).length > 0) {
             toggleLegend(finalData.settings.legend);
             setLabelNameX(finalData.settings.labelNameX);
@@ -56,18 +39,10 @@ export default function Graph() {
         }
     }, [finalData])
 
-    // "settings":{"legend":false,"labelNameX":"","labelNameY":"","domainYStart":0,"height":396,"width":524,"linelabel":true,"gridX":true,"gridY":false}
-
-
-
-
-
-
     const plotRef = useRef();
 
     useEffect(() => {
         if (Object.keys(finalData).length > 0) {
-            console.log(finalData.data)
             const lineChart = Plot.plot({
                 style: "overflow:visible;",
                 x: {
@@ -76,23 +51,17 @@ export default function Graph() {
                 },
                 y: {
 
-                    // domain: domainY,//Let user decide
-                    grid: gridY,//Let user decide
+                    grid: gridY,
                     label: labelNameY,
 
 
                 },
                 color: {
-                    legend: legend//Let user decide
+                    legend: legend
                 },
-                // title: {
-                //     title: "theLineChart"
-                // },
 
                 marks: [
                     Plot.ruleY([0], { y: domainYStart }),
-                    // Plot.ruleX([1], { stroke: "red" }),
-                    // Plot.ruleX({ x: 1995 }, { stroke: "red" }),
                     Plot.line(finalData.data, {
                         x: "series",
                         y: "value",
@@ -104,9 +73,6 @@ export default function Graph() {
                         x: "series",
                         y: "value",
                         fill: "symbol",
-                        // stroke: "Country",
-                        // strokeWidth: 1,
-                        // marker: "dot",
                         title: d => `${d.symbol}\n${labelNameX}: ${d.series} \n${labelNameY}: ${d.value}`,
 
                     }),
@@ -115,14 +81,14 @@ export default function Graph() {
                         y: "value",
                         z: "symbol",
                         text: linelabel ? "symbol" : "",
-                        textAnchor: "start",//can be toggled
+                        textAnchor: "start",
                         dx: 10,
                         dy: 10
                     })),
 
                 ],
-                height: height,//Let user decide
-                width: width,//Let user decide
+                height: height,
+                width: width,
                 marginTop: 50,
                 marginBottom: 50,
                 marginLeft: 50
@@ -133,10 +99,6 @@ export default function Graph() {
     }, [finalData, legend, labelNameX, labelNameY, domainYStart, height, width, linelabel, gridX, gridY]);
 
 
-
-
-
-    // console.log(chartData, 'chartData from Graph')
     return (
         <div className="graphembed">
             <div className="settingsleft">

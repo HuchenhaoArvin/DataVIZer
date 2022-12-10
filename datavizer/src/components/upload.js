@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { useCSVReader } from 'react-papaparse';
-// import { ApiService } from '../utils/apiService';
 import { DataProcessor } from "../utils/dataProcessor"
 
 
@@ -12,7 +11,6 @@ export default function Upload({ setChartData }) {
             <CSVReader onUploadAccepted={async (results) => {
                 const processedData = DataProcessor.lineChart(results)
                 setChartData(processedData)
-                console.log(processedData)
 
             }} config={{
                 header: true,
@@ -33,9 +31,6 @@ export default function Upload({ setChartData }) {
                             <div>
                                 {acceptedFile && acceptedFile.name}
                             </div>
-                            {/* <button {...getRemoveFileProps()} >
-                                Remove
-                            </button> */}
                         </div>
                         <ProgressBar />
                     </>
